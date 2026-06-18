@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: #f8f9fb;
+    --color-surface: #ffffff;
+    --color-border: #e2e5ea;
+    --color-text: #1a1d27;
+    --color-text-secondary: #4b5563;
+    --color-muted: #9ca3af;
+    --color-hover: #f1f3f5;
+    --color-terminal-bg: #fafbfc;
+  }
+
+  .dark {
+    --color-bg: #0f1117;
+    --color-surface: #1a1d27;
+    --color-border: #2a2d3a;
+    --color-text: #e5e7eb;
+    --color-text-secondary: #9ca3af;
+    --color-muted: #6b7280;
+    --color-hover: rgba(15, 17, 23, 0.5);
+    --color-terminal-bg: #0f1117;
+  }
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) var(--color-bg);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+
+@keyframes lumen-row-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lumen-row-in {
+  animation: lumen-row-in 0.28s ease-out both;
+}
