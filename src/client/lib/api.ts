@@ -63,3 +63,14 @@ export async function fetchScan(): Promise<(ScanResult & { scanning: boolean }) 
   const res = await fetch(`${BASE}/api/scan`);
   return res.json();
 }
+
+export async function requestReplace(
+  componentName: string,
+  files: string[]
+): Promise<void> {
+  await fetch(`${BASE}/api/replace-request`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ componentName, files }),
+  });
+}

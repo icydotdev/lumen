@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { X, FileText, AlertTriangle, GitBranch } from "lucide-react";
+import { X, FileText, AlertTriangle, GitBranch, Check } from "lucide-react";
 import type { ComponentInfo } from "../lib/api";
+import { requestReplace } from "../lib/api";
 import { useStore } from "../store/lumen";
 
 // Preview of the files that replacing this component in the codebase would touch.
@@ -32,6 +33,12 @@ export function DiffModal({
       next.has(p) ? next.delete(p) : next.add(p);
       return next;
     });
+
+  const [queued, setQueued] = useState(false);
+  const apply = async () => {
+    await requestReplace(component.name, [...included]);
+    setQueued(true);
+  };
 
   return (
     <div
@@ -66,9 +73,10 @@ export function DiffModal({
           >
             <GitBranch size={15} className="text-lumen-amber shrink-0 mt-0.5" />
             <p className="text-xs text-lumen-amber">
-              Commit or stash your work first — these edits modify existing files.
-              Changes are applied by Claude Code so you can review the diff in your
-              editor before committing.
+              Commit or stash first — these edits modify existing files. Apply
+              queues the request; Claude picks it up at the end of this run and
+              repoints usages to <code>ui/</code> so you can review the diff before
+              committing.
             </p>
           </div>
 
@@ -111,14 +119,16 @@ export function DiffModal({
               className="text-xs px-3 py-1.5 rounded-md"
               style={{ color: "var(--color-text-secondary)", border: "1px solid var(--color-border)" }}
             >
-              Cancel
+              {queued ? "Close" : "Cancel"}
             </button>
             <button
-              className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-md bg-lumen-accent text-white hover:opacity-90"
-              title="Ask Claude Code to apply these edits"
+              onClick={apply}
+              disabled={queued || included.size === 0}
+              className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-md bg-lumen-accent text-white hover:opacity-90 disabled:opacity-60"
+              title="Queue this replacement for Claude to apply"
             >
-              <AlertTriangle size={12} />
-              Apply with Claude Code
+              {queued ? <Check size={12} /> : <AlertTriangle size={12} />}
+              {queued ? "Queued for Claude" : "Apply with Claude Code"}
             </button>
           </div>
         </div>

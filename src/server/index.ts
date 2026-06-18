@@ -8,6 +8,7 @@ import { createConfigRouter } from "./routes/config.js";
 import { createScanRouter } from "./routes/scan.js";
 import { createComponentsRouter } from "./routes/components.js";
 import { createIngestRouter } from "./routes/ingest.js";
+import { createReplaceRouter } from "./routes/replace.js";
 import { setupWebSocket } from "./ws/progress-stream.js";
 import { startWatcher } from "./services/watcher.js";
 import { scanProject } from "./services/scanner.js";
@@ -35,6 +36,7 @@ export async function startServer({ config, port, mode }: StartOptions) {
   app.use(createScanRouter());
   app.use(createComponentsRouter());
   app.use(createIngestRouter());
+  app.use(createReplaceRouter());
 
   const clientDir = path.join(__dirname, "..", "client");
   app.use(express.static(clientDir));

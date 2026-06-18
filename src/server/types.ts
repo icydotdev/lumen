@@ -60,6 +60,14 @@ export interface ScanSummary {
   inconsistencyCount: number;
 }
 
+export interface ReplaceRequest {
+  id: string;
+  componentName: string;
+  files: string[]; // files the user opted to include
+  status: "pending" | "done";
+  createdAt: number;
+}
+
 export type TokenKind = keyof DesignTokens;
 
 export type ProgressMessage =

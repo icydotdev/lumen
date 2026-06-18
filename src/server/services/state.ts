@@ -3,6 +3,7 @@ import type {
   ScanResult,
   ProgressMessage,
   DesignTokens,
+  ReplaceRequest,
 } from "../types.js";
 
 // Shared in-memory state read by the API routes and built up as Claude
@@ -11,6 +12,7 @@ interface LumenState {
   config: ProjectConfig | null;
   scanResult: ScanResult;
   scanning: boolean;
+  replaceRequests: ReplaceRequest[];
 }
 
 function emptyTokens(): DesignTokens {
@@ -36,7 +38,28 @@ export const state: LumenState = {
   config: null,
   scanResult: emptyScan(),
   scanning: false,
+  replaceRequests: [],
 };
+
+export function addReplaceRequest(
+  componentName: string,
+  files: string[]
+): ReplaceRequest {
+  const req: ReplaceRequest = {
+    id: `${componentName}-${Date.now()}`,
+    componentName,
+    files,
+    status: "pending",
+    createdAt: Date.now(),
+  };
+  state.replaceRequests.push(req);
+  return req;
+}
+
+export function markReplaceDone(id: string) {
+  const req = state.replaceRequests.find((r) => r.id === id);
+  if (req) req.status = "done";
+}
 
 export function resetScan() {
   state.scanResult = emptyScan();
