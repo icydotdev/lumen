@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Moon, Sun, RefreshCw } from "lucide-react";
+import { Moon, Sun, RefreshCw, BookOpen, FlaskConical, Loader2 } from "lucide-react";
 import { useStore } from "../store/lumen";
 import { useThemeStore } from "../hooks/useTheme";
 import { useRefresh } from "../hooks/useScan";
+import { useActions, openStorybook, triggerTests } from "../hooks/useActions";
 import logoSvg from "../assets/logo.svg";
 
 export function Header() {
@@ -12,6 +13,9 @@ export function Header() {
   const toggle = useThemeStore((s) => s.toggle);
   const refresh = useRefresh();
   const [refreshing, setRefreshing] = useState(false);
+  const sb = useActions((s) => s.storybook);
+  const test = useActions((s) => s.test);
+  const hasComponents = useStore((s) => s.components.length > 0);
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -66,6 +70,45 @@ export function Header() {
             {s}
           </span>
         ))}
+        {hasComponents && (
+          <>
+            <button
+              onClick={() => openStorybook()}
+              disabled={sb.status === "starting"}
+              className="flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-md transition-colors hover:bg-lumen-accent/10 disabled:opacity-50"
+              style={{ color: "var(--color-text-secondary)" }}
+              title="Open Storybook"
+            >
+              {sb.status === "starting" ? (
+                <Loader2 size={13} className="animate-spin" />
+              ) : (
+                <BookOpen size={13} />
+              )}
+              {sb.status === "starting" ? "Starting…" : "Storybook"}
+            </button>
+            <button
+              onClick={() => triggerTests()}
+              disabled={test.status === "running"}
+              className="flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-md transition-colors hover:bg-lumen-accent/10 disabled:opacity-50"
+              style={{
+                color:
+                  test.status === "passed"
+                    ? "#22c55e"
+                    : test.status === "failed"
+                      ? "#ef4444"
+                      : "var(--color-text-secondary)",
+              }}
+              title="Run tests"
+            >
+              {test.status === "running" ? (
+                <Loader2 size={13} className="animate-spin" />
+              ) : (
+                <FlaskConical size={13} />
+              )}
+              {test.status === "running" ? "Testing…" : "Run tests"}
+            </button>
+          </>
+        )}
         <button
           onClick={handleRefresh}
           disabled={busy}

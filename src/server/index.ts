@@ -9,6 +9,8 @@ import { createScanRouter } from "./routes/scan.js";
 import { createComponentsRouter } from "./routes/components.js";
 import { createIngestRouter } from "./routes/ingest.js";
 import { createReplaceRouter } from "./routes/replace.js";
+import { createActionsRouter } from "./routes/actions.js";
+import { killProcesses } from "./services/process-runner.js";
 import { setupWebSocket } from "./ws/progress-stream.js";
 import { startWatcher } from "./services/watcher.js";
 import { scanProject } from "./services/scanner.js";
@@ -37,6 +39,7 @@ export async function startServer({ config, port, mode }: StartOptions) {
   app.use(createComponentsRouter());
   app.use(createIngestRouter());
   app.use(createReplaceRouter());
+  app.use(createActionsRouter());
 
   const clientDir = path.join(__dirname, "..", "client");
   app.use(express.static(clientDir));
@@ -60,6 +63,7 @@ export async function startServer({ config, port, mode }: StartOptions) {
   await new Promise<void>((resolve) => server.listen(port, resolve));
 
   const cleanup = () => {
+    killProcesses();
     server.close();
     process.exit(0);
   };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Loader2, Replace, Sparkles } from "lucide-react";
+import { Loader2, Replace, Sparkles, BookOpen } from "lucide-react";
 import { useStore } from "../store/lumen";
+import { openInStorybook } from "../hooks/useActions";
 import type { ComponentInfo } from "../lib/api";
 import { StatusBadge } from "./StatusBadge";
 import { HealthBar } from "./HealthBar";
@@ -159,17 +160,32 @@ export function ComponentTable() {
                   )}
                 </td>
                 <td className="px-4 py-2.5 text-right">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setDiffFor(c);
-                    }}
-                    className="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-md hover:bg-lumen-accent/10"
-                    style={{ color: "var(--color-text-secondary)" }}
-                  >
-                    <Replace size={12} />
-                    Replace existing instances
-                  </button>
+                  <div className="inline-flex items-center gap-1">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openInStorybook(c.name);
+                      }}
+                      className="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-md hover:bg-lumen-accent/10"
+                      style={{ color: "var(--color-text-secondary)" }}
+                      title="Open in Storybook"
+                    >
+                      <BookOpen size={12} />
+                      Storybook
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDiffFor(c);
+                      }}
+                      className="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-md hover:bg-lumen-accent/10"
+                      style={{ color: "var(--color-text-secondary)" }}
+                      title="Replace existing instances in the codebase"
+                    >
+                      <Replace size={12} />
+                      Replace
+                    </button>
+                  </div>
                 </td>
               </tr>
             );

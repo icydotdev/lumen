@@ -74,3 +74,37 @@ export async function requestReplace(
     body: JSON.stringify({ componentName, files }),
   });
 }
+
+export interface StorybookState {
+  status: "stopped" | "starting" | "running" | "error";
+  url: string | null;
+}
+export interface TestState {
+  status: "idle" | "running" | "passed" | "failed";
+  lastExitCode: number | null;
+}
+
+export async function getStorybook(): Promise<StorybookState> {
+  return (await fetch(`${BASE}/api/storybook`)).json();
+}
+export async function startStorybook(): Promise<StorybookState> {
+  return (await fetch(`${BASE}/api/storybook`, { method: "POST" })).json();
+}
+export async function getTestState(): Promise<TestState> {
+  return (await fetch(`${BASE}/api/test`)).json();
+}
+export async function runTests(filter?: string): Promise<TestState> {
+  return (
+    await fetch(`${BASE}/api/test`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ filter }),
+    })
+  ).json();
+}
+
+// Storybook autodocs URL for a component (title "Components/<Name>").
+export function storybookDocsUrl(base: string, componentName: string): string {
+  const id = `components-${componentName.toLowerCase()}`;
+  return `${base.replace(/\/$/, "")}/?path=/docs/${id}--docs`;
+}
