@@ -63,3 +63,43 @@
 .lumen-row-in {
   animation: lumen-row-in 0.28s ease-out both;
 }
+
+/* Shimmer for scanning skeleton rows */
+@keyframes lumen-shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+.lumen-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-hover) 40%,
+    var(--color-hover) 60%,
+    transparent 100%
+  );
+  background-size: 800px 100%;
+  background-repeat: no-repeat;
+  animation: lumen-shimmer 1.4s ease-in-out infinite;
+}
+
+/* Pulsing prism beam while scanning */
+@keyframes lumen-beam {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scaleX(0.6);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.lumen-beam {
+  animation: lumen-beam 1.6s ease-in-out infinite;
+  transform-origin: left center;
+}

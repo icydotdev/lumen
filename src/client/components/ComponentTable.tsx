@@ -6,20 +6,62 @@ import { StatusBadge } from "./StatusBadge";
 import { HealthBar } from "./HealthBar";
 import { DiffModal } from "./DiffModal";
 
-function LoadingScreen() {
+function IdleScreen() {
   return (
     <div
       className="flex-1 flex items-center justify-center"
       style={{ color: "var(--color-muted)" }}
     >
       <div className="text-center">
-        <Sparkles size={40} className="mx-auto mb-4 text-lumen-accent animate-pulse" />
+        <Sparkles size={40} className="mx-auto mb-4 text-lumen-accent" />
         <p className="text-sm" style={{ color: "var(--color-text)" }}>
-          Inferring your design system…
+          Waiting to scan…
         </p>
-        <p className="text-xs mt-1">
-          Components appear here as they're discovered.
-        </p>
+        <p className="text-xs mt-1">Run the skill to extract your design system.</p>
+      </div>
+    </div>
+  );
+}
+
+function ScanningState() {
+  return (
+    <div className="flex-1 overflow-hidden p-6">
+      <div className="flex items-center gap-3 mb-6">
+        <Sparkles size={18} className="text-lumen-accent animate-pulse" />
+        <div>
+          <p className="text-sm font-medium" style={{ color: "var(--color-text)" }}>
+            Inferring your design system…
+          </p>
+          <p className="text-xs" style={{ color: "var(--color-muted)" }}>
+            Reading components, clustering tokens. Rows appear as they're found.
+          </p>
+        </div>
+      </div>
+      {/* animated prism beam */}
+      <div className="flex flex-col gap-1.5 mb-7 max-w-xs">
+        {[0, 1, 2, 3, 4].map((i) => (
+          <div
+            key={i}
+            className="h-1 rounded-full lumen-beam"
+            style={{
+              background:
+                ["#ef4444", "#f59e0b", "#eab308", "#22c55e", "#8b5cf6"][i],
+              animationDelay: `${i * 0.12}s`,
+              width: `${60 + i * 8}%`,
+            }}
+          />
+        ))}
+      </div>
+      {/* skeleton rows */}
+      <div className="space-y-3">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="flex items-center gap-4" style={{ opacity: 1 - i * 0.13 }}>
+            <div className="h-3 rounded lumen-shimmer" style={{ width: "18%" }} />
+            <div className="h-3 rounded lumen-shimmer" style={{ width: "6%" }} />
+            <div className="h-3 rounded lumen-shimmer" style={{ width: "8%" }} />
+            <div className="h-3 rounded lumen-shimmer" style={{ width: "10%" }} />
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -30,11 +72,15 @@ export function ComponentTable() {
   const generating = useStore((s) => s.generating);
   const completed = useStore((s) => s.completed);
   const started = useStore((s) => s.started);
+  const isScanning = useStore((s) => s.isScanning);
   const selectComponent = useStore((s) => s.selectComponent);
   const selected = useStore((s) => s.selectedComponent);
   const [diffFor, setDiffFor] = useState<ComponentInfo | null>(null);
 
-  if (!started && components.length === 0) return <LoadingScreen />;
+  if (components.length === 0) {
+    if (isScanning) return <ScanningState />;
+    if (!started) return <IdleScreen />;
+  }
 
   const rows = [...components].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -122,7 +168,7 @@ export function ComponentTable() {
                     style={{ color: "var(--color-text-secondary)" }}
                   >
                     <Replace size={12} />
-                    Replace
+                    Replace existing instances
                   </button>
                 </td>
               </tr>
