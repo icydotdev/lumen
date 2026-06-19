@@ -1,15 +1,31 @@
-# @icydotdev/lumen
+<p align="center">
+  <img src="./assets/banner.svg" alt="Lumen — AI-powered design system workbench for React" width="100%" />
+</p>
 
-> Infer and scaffold your implicit React design system.
+<p align="center">
+  <a href="https://www.npmjs.com/package/@icydotdev/lumen"><img alt="npm" src="https://img.shields.io/npm/v/@icydotdev/lumen?color=8b5cf6&label=%40icydotdev%2Flumen"></a>
+  <img alt="license" src="https://img.shields.io/badge/license-MIT-8b5cf6">
+  <img alt="react" src="https://img.shields.io/badge/React%20%26%20Next.js-supported-22c55e">
+</p>
 
-Lumen scans a React codebase, infers the design system already hiding in your
-components (colours, spacing, typography, variants), and scaffolds a structured
-`ui/` folder — theme, organised components, Storybook stories, accessibility
-tests, and unit tests. A local dashboard streams the work in realtime and gives
-you ongoing design-system health monitoring.
+<p align="center">
+  <b>The AI-powered design system workbench for React.</b><br/>
+  Point your coding agent at a codebase and Lumen extracts the design system
+  already hiding in it — then helps you organise, test, and maintain it, live.
+</p>
 
-Part of the [@icydotdev](https://github.com/icydotdev) suite, alongside
-[`runny`](https://github.com/icydotdev/runny) and
+---
+
+Most React apps already <i>have</i> a design system — it's just scattered across
+components as repeated colours, ad-hoc spacing, and near-duplicate buttons. Lumen
+makes it explicit: your AI agent (Claude) scans the code while the **Lumen
+dashboard** visualises it in realtime, then scaffolds a structured `ui/` folder —
+unified components, typed tokens, Storybook stories, and accessibility + unit
+tests — and flags the inconsistencies it unified along the way.
+
+The agent does the thinking; Lumen is the engine + live dashboard that drives and
+visualises it. Part of the [@icydotdev](https://github.com/icydotdev) suite,
+alongside [`runny`](https://github.com/icydotdev/runny) and
 [`nextmap`](https://github.com/icydotdev/nextmap).
 
 ## Usage

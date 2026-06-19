@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 260" fill="none" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+  <!-- backdrop -->
+  <rect x="1" y="1" width="898" height="258" rx="24" fill="#0f1117" stroke="#2a2d3a" stroke-width="2"/>
+  <rect x="1" y="1" width="898" height="258" rx="24" fill="url(#glow)" opacity="0.5"/>
+
+  <!-- prism mark -->
+  <g transform="translate(70,72)">
+    <!-- incoming beam -->
+    <line x1="-46" y1="46" x2="-6" y2="52" stroke="#e5e7eb" stroke-width="3.5" stroke-linecap="round" opacity="0.85"/>
+    <!-- prism triangle -->
+    <path d="M44 30 L78 78 L30 78 Z" fill="#161922" stroke="#8b5cf6" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M44 30 L78 78 L30 78 Z" fill="url(#prism)" opacity="0.22"/>
+    <!-- refracted spectrum -->
+    <line x1="78" y1="66" x2="120" y2="42" stroke="#ef4444" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="78" y1="68.5" x2="120" y2="55" stroke="#f59e0b" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="78" y1="71" x2="120" y2="68" stroke="#eab308" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="78" y1="73.5" x2="120" y2="81" stroke="#22c55e" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="78" y1="76" x2="120" y2="94" stroke="#8b5cf6" stroke-width="3.5" stroke-linecap="round"/>
+    <!-- spark -->
+    <circle cx="44" cy="30" r="4.5" fill="#8b5cf6"/>
+    <circle cx="44" cy="30" r="9" fill="#8b5cf6" opacity="0.25"/>
+  </g>
+
+  <!-- wordmark -->
+  <text x="232" y="118" font-size="76" font-weight="800" fill="#8b5cf6" letter-spacing="-2">lumen</text>
+
+  <!-- tagline -->
+  <text x="236" y="158" font-size="19" font-weight="600" fill="#e5e7eb" letter-spacing="0.5">AI-powered design system workbench<tspan fill="#6b7280"> · React</tspan></text>
+  <text x="236" y="184" font-size="14" fill="#9ca3af" letter-spacing="0.3">Extract, organise &amp; maintain your design system — driven by your coding agent.</text>
+
+  <!-- spectrum underline -->
+  <g transform="translate(236,206)">
+    <rect x="0"   y="0" width="44" height="4" rx="2" fill="#ef4444"/>
+    <rect x="50"  y="0" width="44" height="4" rx="2" fill="#f59e0b"/>
+    <rect x="100" y="0" width="44" height="4" rx="2" fill="#eab308"/>
+    <rect x="150" y="0" width="44" height="4" rx="2" fill="#22c55e"/>
+    <rect x="200" y="0" width="44" height="4" rx="2" fill="#8b5cf6"/>
+  </g>
+
+  <defs>
+    <radialGradient id="glow" cx="0.12" cy="0.3" r="0.9">
+      <stop stop-color="#8b5cf6" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#0f1117" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="prism" x1="30" y1="30" x2="78" y2="78" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#22c55e"/>
+    </linearGradient>
+  </defs>
+</svg>
