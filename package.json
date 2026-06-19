@@ -1,6 +1,6 @@
 {
   "name": "@icydotdev/lumen",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "AI-powered design system workbench for React — extract, organise, test, and maintain your design system from existing code, live.",
   "type": "module",
   "bin": {
