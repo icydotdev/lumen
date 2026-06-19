@@ -44,8 +44,16 @@ export function Header() {
           className="flex items-center gap-3 hover:opacity-80 transition-opacity"
         >
           <img src={logoSvg} alt="Lumen" className="w-7 h-7" />
-          <span className="text-lg font-bold tracking-tight text-lumen-accent">
-            lumen
+          <span className="flex flex-col leading-none">
+            <span className="text-lg font-bold tracking-tight text-lumen-accent">
+              lumen
+            </span>
+            <span
+              className="text-[10px] tracking-wide"
+              style={{ color: "var(--color-muted)" }}
+            >
+              react design system extractor
+            </span>
           </span>
         </a>
         {config && (
