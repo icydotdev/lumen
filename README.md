@@ -30,18 +30,18 @@ alongside [`runny`](https://github.com/icydotdev/runny) and
 
 ## Usage
 
-Lumen is the **engine** behind the `extract-design-system` skill. You normally
+Lumen is the **engine** behind the `react-design-system-extractor` skill. You normally
 drive it through the skill, not by hand:
 
 ```bash
 # once — installs the skill (prompts for project vs global)
-npx skills add icydotdev/skills --skill extract-design-system
+npx skills add icydotdev/skills --skill react-design-system-extractor
 ```
 
 Then, in Claude Code (or any supported agent):
 
 ```
-/extract-design-system
+/react-design-system-extractor
 ```
 
 The skill runs the Lumen engine, scans your codebase, and scaffolds `ui/` while
